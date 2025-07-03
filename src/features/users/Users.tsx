@@ -8,9 +8,10 @@ export const Users = (): JSX.Element | null => {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    setInterval(() => {
+    const handler = setInterval(() => {
       void refetch();
     }, 30000);
+    return () => clearInterval(handler);
   }, [refetch]);
 
   if (isError) {
@@ -43,7 +44,7 @@ export const Users = (): JSX.Element | null => {
           <div className={styles.userCard}>
             <div className={styles.userCardHeader}>{name}</div>
             <div className={styles.userCardBody}>
-              Email: <a href="mailto:{email}">{email}</a>
+              Email: <a href={`mailto:${email}`}>{email}</a>
             </div>
           </div>
         ))}
